@@ -6,6 +6,9 @@ import randomizer.*
 import posiciones.*
 import paleta.*
 
+/*
+    Test de prueba del branch
+*/
 program rpgPorTurnos {
 	game.title("RPG por turnos de nombre a confirmar")
 	game.height(16) 		//valor por defecto 5
