@@ -12,6 +12,7 @@ object barraEstadoPeleas {
     var property jugador = personaje
 
     method text() = "Barra De Peleas"
+    method textColor() = paleta.rojo()
 
 
     // aparece todo lo que tiene que mostrar la barra de estado
@@ -26,7 +27,7 @@ object barraEstadoPeleas {
             keyboard.q().onPressDo( { jugador.atacar(enemigo)})
 
             //se evalua si la pelea termino o no
-            game.onTick(500, "evaluarPelea", { self.desaparecer() } )
+            //game.onTick(500, "evaluarPelea", { self.desaparecer() } )
 
     }
 
@@ -42,8 +43,8 @@ object barraEstadoPeleas {
             game.removeVisual(vidaPersonaje)
             game.removeVisual(vidaEnemigo)
             game.removeVisual(ataque)
-            enemigo.morir()
-            game.stop()
+            enemigo.morir() // cambiar en el futuro
+            //game.stop()
             
         }
     }
@@ -57,6 +58,7 @@ object barraEstadoPeleas {
 object vidaPersonaje{
 
     method text() = "Vida: " + personaje.vida()
+    method textColor() = paleta.rojo()
 
     method position() = barraEstadoPeleas.position().down(1).left(2)
 
@@ -65,6 +67,8 @@ object vidaPersonaje{
 object vidaEnemigo {
 
     method text() = "Enemigo Vida: " + barraEstadoPeleas.enemigo().vida()
+    method textColor() = paleta.rojo()
+
 
     method position() = vidaPersonaje.position().right(3)
 
@@ -74,5 +78,7 @@ object ataque{
 
     method position() = vidaPersonaje.position().down(1)
     method text() = personaje.bolsa().head()
+    method textColor() = paleta.rojo()
+
 
 }

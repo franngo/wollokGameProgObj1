@@ -77,4 +77,10 @@ object enemigo1 {
         vida = 100
     }
 
+    method esArma() {return false}
+
+
+    method colisiono(pj){
+        self.combate()
+    }
 }

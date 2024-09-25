@@ -1,11 +1,13 @@
 import wollok.game.*
 import personaje.*
 import randomizer.*
+import paleta.*
 
 //ARMA
 
-class Arma {
-    const property tipo = randomizer.armaRandom()
+
+/*class Arma {
+    const property tipo = espada //randomizer.armaRandom()
     //var property durabilidad = randomizer.randomDe1Hasta(120)
     const property esArma = true
     var property estaEquipada = false
@@ -54,7 +56,7 @@ class Arma {
 }
 
 //tipos de arma
-
+/*
 object arcoYFlecha {
     const property danho = 20
     var durabilidad = 130.randomUpTo(180).round() //devuelve un numero entre 130 y 180
@@ -81,14 +83,16 @@ object arcoYFlecha {
 
 
 }
-
+*/
 object espada {
+    var property position  =  randomizer.position()
     const danho = 35
     var durabilidad = 100.randomUpTo(130).round()
     const nivel = 1.randomUpTo(3).round()
+   // var property estaEquipada = false
 
-    method danio() {
-      return  danho + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+    method danho() {
+      return  danho //+ (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
     }
 
     method image() {
@@ -107,11 +111,27 @@ object espada {
           
     }
 
-    method text(){ self.durabilidad()}
+    method text(){ return durabilidad.toString() + "\n Nivel: " + nivel.toString()}
+    method textColor() = paleta.rojo()
+
+    method esArma() {
+        return true
+    }
+
+    method colisiono(pj){
+        pj.equiparArma(self)
+    }
+
+
 
 
 }
 
+object punio {
+    var property position = game.at(0,0) 
+}
+
+/*
 object martilloDeGuerra {
     const property danho = 50
     var durabilidad = 80.randomUpTo(100).round()
@@ -136,7 +156,7 @@ object martilloDeGuerra {
         } else {durabilidad = durabilidad - 5} //cada vez que ataca el personaje, baja 5 la durabilidad      
     }
 }
-
+*/
 /*propuesta de idea: El personaje se encuentra con armas de forma random por la pantalla (habría que ver como randomizar que aparezcan
 en el tablero). Las armas que se encuentra son objetos de tipo Arma, los cuales tienen los atributos tipo y durabilidad que también son 
 randoms. Una cosa es que la durabilidad sería un int pero los tipos son objetos (espada, arcoYFlecha y cetroMagico). Estos objetos, por 
@@ -156,10 +176,13 @@ object listaDeObjetos {
 		return game.at(14,14)
 	}
 
-	method image() { 
-		return "listaDeObj" + self.estado() + ".png"
+	method text() { 
+		return personaje.bolsa().size().toString()
 	}
+    method textColor() = paleta.rojo()
 
+
+    /* // entiendo que esto esta para que despues se cambien por las imagenes del arma equipada. Pero no sé, porque para la cantidad de objetos que tiene se puede hacer de otra forma
     method estado() {
         if(personaje.bolsa().size()==3) {
             return "3"
@@ -171,7 +194,7 @@ object listaDeObjetos {
             return "0"
         }
     }
-
+    */
 }
 
 /*

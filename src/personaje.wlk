@@ -7,26 +7,23 @@ import enemigos.*
 object personaje {
 
     var property vida = 100
-	const property bolsa = [espada]
+	const property bolsa = []
 	//de momento, la idea es que las armas NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
 	//para esta idea de armas no únicas usamos la clase Arma
 	//propongo un máximo de 3. Podría agrandarse si pasa x cosa (o sino lo dejamos fijo en 3)
 	var property isMoving = true //flag
-	var  position = game.at(7,2); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
+	var  property position = game.at(7,2); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
-	var property armaActual = bolsa.head()
+	var property armaActual = punio
     var property tieneArmaEquipada = false
 
-	
-	method position() {
-		return position
-	}
 
 	method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "personaje" + self.estado() + ".png"
+		return "knight" +  ".png" //self.estado() + ".png"
 	}
 
+/* por ahora sin estado.
 	method estado() {
 		if(armaActual==null) {
 			return ""
@@ -34,17 +31,27 @@ object personaje {
 			return armaActual.imagenParaPersonaje()
 		}
 	}
+*/
+
 
 	/// ARMA    
     method equiparArma(armaNueva){
-        if(armaNueva.esArma()) {
-            armaNueva.serEquipada()
-            self.armaActual(armaNueva)
-            self.tieneArmaEquipada(true)
-			bolsa.add(armaNueva)
-        }
+        bolsa.add(armaNueva)
+        //armaNueva.serEquipada()
+        self.armaActual(bolsa.head())   // el arma que tiene el la mano es la primera arma que agarro
+        self.tieneArmaEquipada(true) 
+        self.mostrarArmaEquipada()
+        //armaActual.estaEquipada(true)
+        
+    }
+
+    method mostrarArmaEquipada() {
+            armaActual.position( game.at(self.position().x() + 1 , self.position().y()) )
+
     }
     
+
+
     method armaActual(arma){
         armaActual = arma
     }
@@ -52,9 +59,16 @@ object personaje {
 	//acciones con teclas
 
 	method mover(direccion) {
+        self.validarMoverEnPelea()
 		position = direccion.siguiente(position)
 		enemigo1.mover()
 	}
+
+    method validarMoverEnPelea(){
+        if(estaEnCombate){
+            self.error("Estoy Peleando")
+        }
+    }
 
 	//se ataca con la primer arma que se tiene en la bolsa, que viene a ser el arma actual. El ataque, de momento, no causa ningún efecto
 	//además de bajar la durabilidad del arma.
@@ -80,7 +94,7 @@ object personaje {
     //cuando se toca la Q ataca (implementado en pelea - barraDeEstado.aparecer())
     method atacar(enemigo){
         if(estaEnCombate){
-            enemigo.recibirDanho(armaActual.danio())
+            enemigo.recibirDanho(armaActual.danho())
 			armaActual.durabilidad()
         }
     }

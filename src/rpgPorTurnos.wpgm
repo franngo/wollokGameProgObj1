@@ -19,12 +19,8 @@ program rpgPorTurnos {
 	game.addVisual(listaDeObjetos)
 	game.addVisual(enemigo1)
 	game.addVisual(personaje)
-	var arma1= new Arma() //crea 1 arma con atributos random en posicion random ni bien empiece el juego
-	game.addVisual(arma1) //se importa el image() de su clase, o sea, Arma
-						  //con game.removeVisual(arma1) lo sacamos. Cuando no tiene el visual, es como si no estuviera. el pj no puede
-						  //interactuar con el objeto que no tiene visual.
-	var arma2= null
-	var arma3= null
+	
+	game.addVisual(espada) // por ahora solo agrego al esapda para probar cosas aparte.
 
 	//MOVIMIENTO
 
@@ -89,16 +85,12 @@ program rpgPorTurnos {
 
 	//el parámetro del bloque (en este caso, arma), es el objeto con el que colisiona personaje. si hay más de uno, supongo que se ejecutaría
 	//este mismo código tantas veces como objetos haya ahí //es lo mismo que whenCollideDo, no?
-    game.onCollideDo(personaje, { arma => personaje.equiparArma(arma) //esto capaz tmb podría ir en el if. habría que modificar equiparArma
-								  if(arma.esArma()) {
-								  	{game.say(personaje, "Agarré un arma, Oh Yeah!")}
-									game.removeVisual(arma)
-								  }
-								})
+
+    //El personaje se encutra con un obejeto ( puede ser arma o no) y dentro de ese objeto valida su funcion. por ahora solo hay armas. El método esta solo en extras(Armas)
+    game.onCollideDo(personaje, { entidad => entidad.colisiono(personaje)} )  
+
 
     // collision entre personaje y enemigo para empezar pelea
-    game.whenCollideDo(personaje, {enemigo => enemigo.combate() } )
-
 
 	//EVENTOS
 	
