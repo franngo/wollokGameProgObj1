@@ -173,7 +173,7 @@ de daño, de 80 a 140, y el arco y flecha, que es el que menos daño hace, de 12
 
 //Esto es para la visual en el tablero. Muestra los objetos que tiene actualmente el personaje (en realidad, por ahora solo muestra la cant)
 object listaDeObjetos {
-    const property esArma = false
+    //const property esArma = false
 
     method position() {
 		return game.at(15,15)
@@ -194,6 +194,8 @@ object listaDeObjetos {
             return "0"
         }
     }
+
+    method colsiono(personaje) { }
 
     method text() {return personaje.armaActual()}
     method textColor() = paleta.rojo()

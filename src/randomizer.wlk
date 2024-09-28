@@ -10,7 +10,7 @@ object randomizer {
 	}
 
 	method armaRandom() {
-		return #{espada2, martillo, arcoYFlecha2}.anyOne()
+		return #{new Espada(), new ArcoYFlecha(), new MartilloDeGuerra()}.anyOne()
 	}
 
     // Esto es una prueba no tomar encerio pero estoy desesperado.

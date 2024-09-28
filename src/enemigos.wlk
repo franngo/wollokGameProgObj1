@@ -7,7 +7,7 @@ import pelea.*
 /*Tenemos que hacerlo clase pero yo no entendí :)*/
 object enemigo1 {
     var  position = game.at(14,12)
-	const property esArma = false
+	//const property esArma = false
     const objetivoADestruir = personaje
     var property vida = 100
 	

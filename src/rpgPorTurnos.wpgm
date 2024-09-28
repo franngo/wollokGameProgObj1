@@ -7,7 +7,6 @@ import posiciones.*
 import paleta.*
 import armas.*
 
-
 program rpgPorTurnos {
 	game.title("RPG por turnos de nombre a confirmar")
 	game.height(16) 		//valor por defecto 5
@@ -19,7 +18,7 @@ program rpgPorTurnos {
 	game.addVisual(enemigo1)
 	game.addVisual(personaje)
 
-    var arma1 = new Arma3(durabilidadDe = 100, durabilidadHasta = 130, danho = 35, image = "espadaNegra-32Bits", imagePj = "personajeConEspada-32Bits")//randomizer.armaRamdon2()
+    var arma1 = randomizer.armaRandom()
 	game.addVisual(arma1) //se importa el image() de su clase, o sea, Arma
 						  //con game.removeVisual(arma1) lo sacamos. Cuando no tiene el visual, es como si no estuviera. el pj no puede
 						  //interactuar con el objeto que no tiene visual.
