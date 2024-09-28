@@ -58,7 +58,7 @@ class Espada inherits Arma {
 
     // Para test
     method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
-    method textColor() = paleta.rojo()
+    method textColor() = paleta.azul()
 
 
 }
@@ -74,7 +74,7 @@ class ArcoYFlecha inherits Arma {
 
     override method chequearDurabilidad() {
         if (self.durabilidad() <= 5) {
-            personaje.armaActual(null) //en realidad hay que fijarse si tiene otra y pasar esa al primero, y si hay tercera pasarla a 2do
+            personaje.armaActual(null) 
             personaje.bolsa().remove(personaje.bolsa().head())
         } else {
             self.restarDurabilidad(5)
@@ -94,7 +94,7 @@ class ArcoYFlecha inherits Arma {
 
     // Para test
     method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
-    method textColor() = paleta.rojo()
+    method textColor() = paleta.azul()
 
 }
 
@@ -104,7 +104,7 @@ class MartilloDeGuerra inherits Arma {
     //algún método
 
     override method restarDurabilidad(cantidadRestada) {
-        durabilidad -= (cantidadRestada / 2)
+        durabilidad = durabilidad - (cantidadRestada / 2)
     }
 
     override method chequearDurabilidad() {
@@ -130,7 +130,7 @@ class MartilloDeGuerra inherits Arma {
 
     // Para test
     method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
-    method textColor() = paleta.rojo()
+    method textColor() = paleta.azul()
 
 }
 

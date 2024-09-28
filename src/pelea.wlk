@@ -77,7 +77,7 @@ object vidaEnemigo {
 object ataque{
 
     method position() = vidaPersonaje.position().down(1)
-    method text() = personaje.bolsa().head()
+    method text() = if (personaje.bolsa().isEmpty()) { "Sin arma" } else { personaje.bolsa().head().toString() }
     method textColor() = paleta.rojo()
 
 }

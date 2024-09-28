@@ -44,7 +44,7 @@ object personaje {
 	/// ARMA    
     method equiparArma(armaNueva){
     	bolsa.add(armaNueva) // mete el arma en la bolsa (atrás)
-        //self.armaActual(bolsa.head()) // Su arma actual es la primera de la bolsa
+        self.armaActual(bolsa.head()) // Su arma actual es la primera de la bolsa (si no tenía ninguna, será la nueva)
 		game.removeVisual(armaNueva)
     }
     
@@ -92,10 +92,8 @@ object personaje {
     }
 
 	method actualizarArmaActualSiNecesario() {
-		if(self.armaActual()==null) {
-			if(self.bolsa().size()>=1) {
-				self.armaActual(bolsa.head())
-			}
+		if(self.armaActual()==null && self.bolsa().size()>=1) {
+			self.armaActual(bolsa.head())
 		}
 	}
 
