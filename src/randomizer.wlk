@@ -4,13 +4,15 @@ import wollok.game.*
 
 
 object randomizer {
+	const fabricas = [fabricaEspada, fabricaArcoYFlecha, fabricaMartilloDeGuerra]
 
 	method randomDe1Hasta(numero) {
 		return 1.randomUpTo(numero).round()
 	}
 
 	method armaRandom() {
-		return #{new Espada(), new ArcoYFlecha(), new MartilloDeGuerra()}.anyOne()
+		const fabricaRnd = fabricas.anyOne()
+		return fabricaRnd.nuevaArma()
 	}
 
     // Esto es una prueba no tomar encerio pero estoy desesperado.
