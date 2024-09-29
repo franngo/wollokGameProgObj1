@@ -6,7 +6,7 @@ import personaje.*
 class Arma {
     var property estaEquipada = false
     const property position = game.at(randomizer.posicionesRandomArmas().head(),randomizer.posicionesRandomArmas().last() )
-    const nivel = 1.randomUpTo(3).round() 
+    const property nivel = 1.randomUpTo(3).round() 
 
     method serEquipada() {
       self.estaEquipada(true) 
@@ -135,6 +135,7 @@ class MartilloDeGuerra inherits Arma {
 }
 
 object mano {
+    var property nivel = 0
     method danho() {
         return 5
     }

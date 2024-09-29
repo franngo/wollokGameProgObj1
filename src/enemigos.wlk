@@ -66,6 +66,8 @@ object enemigo1 {
         game.say(self, "Ah! Pelea!")
         barraEstadoPeleas.enemigo(self)
         barraEstadoPeleas.aparecer()
+        combate.enemigoX(self)
+        combate.ataque()
         
     }
 
@@ -83,6 +85,12 @@ object enemigo1 {
     // cuando el pj colsiona con el enemigo, este incia el combate
     method colisiono(pj){
         self.combate()
+    }
+
+    method atacar(){
+        personaje.recibirDanho(10)
+        combate.cambiarTurno()
+        combate.ataque()
     }
 
 }

@@ -18,18 +18,26 @@ object barraEstadoPeleas {
 
     // aparece todo lo que tiene que mostrar la barra de estado
     method aparecer() {
+        self.validarAparecer()
             game.addVisual(self)
             game.addVisual(vidaPersonaje)
             game.addVisual(vidaEnemigo)
             game.addVisual(ataque)
+            game.addVisual(combate)
 
             // el personaje ataca
-            jugador.estaEnCombate(true)
-            keyboard.q().onPressDo( { jugador.atacar(enemigo)})
+            //jugador.estaEnCombate(true)
+            //keyboard.q().onPressDo( { jugador.atacar(enemigo)})
 
             //se evalua si la pelea termino o no
-            game.onTick(500, "evaluarPelea", { self.desaparecer() } )
+            //game.onTick(500, "evaluarPelea", { self.desaparecer() } )
 
+    }
+
+    method validarAparecer() {
+        if(jugador.estaEnCombate()){
+            self.error("A ya esta puesto")
+        }
     }
 
     // desaparece la barra y todo lo que muestra, evaluando si alguno de los dos, personaje o enemigo, murio
@@ -76,8 +84,35 @@ object vidaEnemigo {
 
 object ataque{
 
-    method position() = vidaPersonaje.position().down(1)
-    method text() = personaje.armaActual()
+    method position() = game.at(3, game.height() - 2)//vidaPersonaje.position().down(1)
+    method text() = "Durabilidad: " + personaje.armaActual().durabilidad().toString() + "\nNivel: " + personaje.armaActual().nivel().toString()
+    //personaje.armaActual()
     method textColor() = paleta.rojo()
 
+}
+
+object combate{
+    var property turno = 0
+    var property enemigoX = null
+    var estado = enemigoX
+    method cambiarTurno() {
+        turno = (turno + 1 ) % 2
+    }
+
+    method ataque(){
+        if(turno == 1){
+            estado = enemigoX
+            enemigoX.atacar()
+        } else {
+            estado = personaje
+            personaje.esTurno(true)
+            personaje.debeAtacar(enemigoX)
+        }
+        barraEstadoPeleas.desaparecer()
+    }
+
+    method text() = "Turno: " + self.turno().toString()
+    method textColor() = paleta.rojo()
+
+    var property position = game.at(10,10)
 }

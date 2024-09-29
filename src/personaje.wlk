@@ -5,12 +5,13 @@ import paleta.*
 import enemigos.*
 import armas.*
 import randomizer.*
+import pelea.*
 
 
 object personaje {
 
-    var property vida = 100
-	var estaEnCombate = false
+    var property vida = 100000
+	var property estaEnCombate = false
 	const property bolsa = []
 	//de momento, la idea es que las armas NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
@@ -20,6 +21,7 @@ object personaje {
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
 	var property armaActual = mano //bolsa.head()
     var property tieneArmaEquipada = true
+
 
 	method position() {
 		return position
@@ -57,7 +59,7 @@ object personaje {
 	method mover(direccion) {
 		self.validarMover(direccion)
 		position = direccion.siguiente(position)
-		//enemigo1.mover()
+		enemigo1.mover()
 	}   
 
 	method validarMover(posicion) {
@@ -68,7 +70,7 @@ object personaje {
 
 	method validarMoverPelea() {
 		if (estaEnCombate) {
-			self.error(null)
+			self.error("Estoy en combate")
 		}
 	}
 
@@ -76,16 +78,18 @@ object personaje {
         estaEnCombate = condicion
     }
 
+    var property esTurno = false
     // por ahora ataca con espada porque es una prueba
     //cuando se toca la Q ataca (implementado en pelea - barraDeEstado.aparecer())
     method atacar(enemigo){
-        if(estaEnCombate){
-			//acá podemos agregar constante danho que, si no tiene arma, es un fijo de x. si tiene arma, es el daño del arma. así no rompería
+        if(esTurno && estaEnCombate) {			//acá podemos agregar constante danho que, si no tiene arma, es un fijo de x. si tiene arma, es el daño del arma. así no rompería
             enemigo.recibirDanho(armaActual.danho())
 			armaActual.chequearDurabilidad() //se fija si, tras los 5 de durabilidad que pierde con este ataque, el arma queda en 0.
 											 //si queda en 0, la descarta. Sino, lo resta de su atributo de durabilidad 
-			self.actualizarArmaActualSiNecesario()
+			//self.actualizarArmaActualSiNecesario()
         }
+        combate.cambiarTurno()
+        combate.ataque()
     }
 
 	method actualizarArmaActualSiNecesario() {
@@ -94,5 +98,13 @@ object personaje {
 		}
 	}
 
+    method debeAtacar(enemigo) {
+        estaEnCombate = true
+        keyboard.q().onPressDo( { self.atacar(enemigo)})
+    }
+
+    method recibirDanho(cantidad) {
+        vida = vida - cantidad
+    }
 }
 

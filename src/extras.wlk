@@ -6,7 +6,7 @@ import paleta.*
 object listaDeObjetos {
 
     method position() {
-		return game.at(15,15)
+		return game.at(game.width()-1, game.height()-1)
 	}
 
 	method image() { 
@@ -41,4 +41,5 @@ object dungeon {
     method estaDentro(posicion) {
         return posicion.x().between(2, game.width() - 3) && posicion.y().between(2, game.height() - 6) 
     }
+
 }
