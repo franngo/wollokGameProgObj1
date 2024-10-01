@@ -6,7 +6,7 @@ import enemigos.*
 import personaje.*
 
 object combate {
-    var turno = 0
+    var property turno = 0
     var property enemigo = null
     const heroe = personaje
 
@@ -20,10 +20,10 @@ object combate {
         } else {
             personaje.llevarACaboAtaque(enemigo)
         }
-        self.validarFinDeCombate()
+        self.validarFinDelCombate()
     }
 
-    method validarFinDeCombate() {
+    method validarFinDelCombate() {
         if(heroe.vida() <= 0 || enemigo.vida() <= 0) {
             barraEstadoPeleas.desaparecerJuntoADemasBarras()
             heroe.estaEnCombate(false)
@@ -43,6 +43,7 @@ object barraEstadoPeleas {
     method textColor() = paleta.rojo()
 
     method position() = game.at(7, personaje.position().y() - 3)
+
 
     // aparece todo lo que tiene que mostrar la barra de estado
     method aparecer() {
@@ -82,9 +83,9 @@ object vidaEnemigo {
 }
 
 object ataque{
-
+        
     method position() = vidaPersonaje.position().down(1)
-    method text() = personaje.armaActual()
+    method text() = "daño:" + personaje.armaActual().danho().toString()
     method textColor() = paleta.rojo()
 
 }

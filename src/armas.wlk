@@ -147,8 +147,9 @@ class MartilloDeGuerra inherits Arma {
 }
 
 object mano { //objeto especial (hay que trabajar con los efectos que causa porque noto efectos raros en la pelea al usar la mano)
+    const danho = 5
     method danho() {
-        return 5
+        return danho
     }
 
     method chequearDurabilidad() { } //necesario para que funcione el polimorfismo

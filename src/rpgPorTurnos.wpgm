@@ -27,6 +27,8 @@ program rpgPorTurnos {
 	keyboard.s().onPressDo({personaje.mover(abajo)})
 	keyboard.a().onPressDo({personaje.mover(izquierda)})
 
+	keyboard.up().onPressDo({personaje.atacar(personaje.enemigoCombate())})
+
 	//COLISIÓN
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
 

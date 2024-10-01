@@ -54,6 +54,7 @@ object enemigo1 {
         - Aparece la barra de estado.
     */
     method combate() {
+        personaje.enemigoCombate(self)
         position = position.right(1)
         game.say(self, "Ah! Pelea!")
         barraEstadoPeleas.enemigo(self)

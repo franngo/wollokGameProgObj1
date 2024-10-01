@@ -10,6 +10,8 @@ import pelea.*
 
 object personaje {
 
+	var property enemigoCombate = null
+
 	var  position = game.at(7,2);
     var property vida = 450
 	const property bolsa = []
@@ -74,14 +76,21 @@ object personaje {
     }
 
 	method llevarACaboAtaque(enemigo) { //de este modo, solo se puede ejecutar atacar estando dentro de una pelea
-		keyboard.up().onPressDo({self.atacar(enemigo)})
+		//keyboard.up().onPressDo({self.atacar(enemigo)})
 	}
 
 	method atacar(enemigo) {
+		self.validarCombate()
 		enemigo.recibirDanho(armaActual.danho()) //ya no hace falta preguntar si está en combate, porq atacar solo se ejecuta cuando hay uno
 		armaActual.chequearDurabilidad()	
 		combate.cambiarTurno()
 		combate.darseTurnoDelCombate()
+	}
+
+	method validarCombate() {
+		if(combate.turno() == 1 && !estaEnCombate){
+			self.error("NO ESTOY PELEANDO")
+		}
 	}
 
 	method recibirDanho(cantidad) {
